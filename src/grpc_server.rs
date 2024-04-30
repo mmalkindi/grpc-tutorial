@@ -3,13 +3,13 @@ use tokio::sync::mpsc;
 use tokio_stream::wrappers::ReceiverStream;
 use tokio::sync::mpsc::{Receiver, Sender};
 
-use services::{payment_service_server::{PaymentService, PaymentServiceServer}, PaymentRequest, PaymentResponse,
-    transaction_service_server::{TransactionService, TransactionServiceServer}, TransactionRequest, TransactionResponse,
-chat_service_server::{ChatService, ChatServiceServer}, ChatMessage};
-
 pub mod services {
     tonic::include_proto!("services");
 }
+
+use services::{payment_service_server::{PaymentService, PaymentServiceServer}, PaymentRequest, PaymentResponse,
+    transaction_service_server::{TransactionService, TransactionServiceServer}, TransactionRequest, TransactionResponse,
+    chat_service_server::{ChatService, ChatServiceServer}, ChatMessage};
 
 #[derive(Default)]
 pub struct MyPaymentService {}
@@ -23,6 +23,7 @@ impl PaymentService for MyPaymentService {
         println!("Received payment request: {:?}", request);
 
         // Process the request and return a response
+        // This example immediately returns a succesful result for demonstration purposes
         Ok(Response::new(PaymentResponse { success: true }))
     }
 }
@@ -61,6 +62,7 @@ impl TransactionService for MyTransactionService {
     }
 }
 
+
 #[derive(Default)]
 pub struct MyChatService {}
 
@@ -80,8 +82,7 @@ impl ChatService for MyChatService {
                 println!("Received message: {:?}", message);
                 let reply = ChatMessage {
                     user_id: message.user_id.clone(),
-                    message: format!("Terima kasih telah melakukan chat kepada CS virtual,
-                    Pesan anda akan dibalas pada jam kerja. pesan anda: {}", message.message),
+                    message: format!("Terima kasih telah melakukan chat kepada CS virtual, Pesan anda akan dibalas pada jam kerja. pesan anda: {}", message.message),
                 };
 
                 tx.send(Ok(reply)).await.unwrap_or_else(|_| {});
