@@ -1,4 +1,4 @@
-# GRPC Tutorial (Module 9: High Level Networking)
+# gRPC Tutorial (Module 9: High Level Networking)
 
 ```credential
 Nama  : Muhammad Milian Alkindi
@@ -55,22 +55,39 @@ maintainability as each module only has a single responsibility/service to cover
 
 > Q: In the `MyPaymentService` implementation, what additional steps might be necessary to handle more complex payment processing logic?
 
-A: ...
+A:
+
+- Data validation to make sure payment information are all valid
+- Error handling on invalid payment requests / faulty payment process
+- Multithreading to process multiple payment requests at a time
 
 > Q: What impact does the adoption of gRPC as a communication protocol have on the overall architecture and design of distributed systems,
 > particularly in terms of interoperability with other technologies and platforms?
 
-A: ...
+A:
+
+gRPC as a communication protocol allows the creation of scalable, high-performance framework for efficient distributed system.
+Opposed to REST, gRPC does away with manual HTTP configuration methods which eases interaction between modules.
 
 > Q: What are the advantages and disadvantages of using `HTTP/2`, the underlying protocol for gRPC, compared to `HTTP/1.1` or `HTTP/1.1` with WebSocket for REST APIs?
 
-A: ...
+A:
+
+- Advantages:
+  - Key features such as Request Multiplexing, Header Compression, and Server push which all collectively contribute to faster and more scalable communication between client and server
+- Disadvantages:
+  - More complex to set up compared to `HTTP/1.1` or `HTTP/1.1` with WebSocket
 
 > Q: How does the request-response model of REST APIs contrast with the bidirectional streaming capabilities of gRPC in terms of real-time communication and responsiveness?
 
-A: ...
+A: REST API is limited to `HTTP/1.1` which has the limitation of a single request before fetching a response from the server.
+gRPC solves this with the use of `HTTP/2`, which has request multiplexing that lets it pack multiple requests and send them all at once to the server.
+This allows gRPC to be more scalable and efficient in terms of real-time communication and responsiveness.
 
 > Q: What are the implications of the schema-based approach of gRPC, using Protocol Buffers,
 > compared to the more flexible, schema-less nature of JSON in REST API payloads?
 
-A: ...
+A:
+
+A fixed schema-based approach allows the system to validate data and improve processing speeds based on the already created schema.
+It may require more effort to create the schema upfront, but a flexible, schema-less approach does not have the same luxury.
